@@ -4,10 +4,23 @@
 <meta charset="UTF-8">
 <title>windows对象</title>
 <script>
-
+	//window.alert('hh');
+	//window.confirm('确认关闭');
+	
+	//浏览器信息对象
+	console.log(window.navigator);
+	console.log(window.navigator.cookieEnabled);
+	console.log(window.location);
+	//window.location.href = 'http://www.zixue.it';
+	
+	console.log(window.history);
+	console.log(window.screen.width);
+	console.log(window.screen.height);
+	alert(window.document);
 </script>
 </head>
 <body>
-
+	<input type="button" value="前进" onclick="javascript:window.history.forward()" />
+	<input type="button" value="后退" onclick="javascript:window.history.back()" />
 </body>
 </html>

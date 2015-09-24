@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>作用域</title>
+<script>
+	window.str = 'china';
+	function t1(){
+		//var str = 'shanghai';
+		function t2(){
+			//var声明局部变量
+			//var str = 'beijing';
+			//没有var，即为赋值操作，局部没有，则逐级上层查找
+			str = 'beijing';
+			alert(str);
+		}
+		t2();
+	}
+	t1();
+	alert(window.str);
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

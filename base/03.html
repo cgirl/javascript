@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>03.运算符</title>
+<script>
+	//js中拼接运算符使用+，一旦遇到非法数字后，之后的一律按字符串拼接
+	console.log(2+3);
+	console.log('hello'+' '+'world');
+	console.log(2+3+4+'haha'+5+6);
+	
+	//js中逻辑运算，返回最早能判断结果的值（短路点）
+	var a = false;
+	var b = 6;
+	var d = true;
+	var c = (a || b || d);
+	console.log(c);
+	
+	var e = false;
+	var f = 99;
+	console.log(e&&f);
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

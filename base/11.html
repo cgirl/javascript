@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>找对象</title>
+</head>
+<body>
+	<h1>找对象</h1>
+	<div id="test1">
+		<p>p1</p>
+		<p>p2</p>
+		<p>p3</p>
+	</div>
+	<div class="test2">test2</div>
+	<input type="text" name="username" id="" value="poly">
+</body>
+<script>
+	//用id来查询，返回值是对象
+	console.log(document.getElementById('test1'));
+	
+	//用标签来查询，返回值是对象的集合
+	console.log(document.getElementsByTagName('p'));
+	ps = document.getElementsByTagName('p');
+	ps[1].style.background = 'green';
+	
+	//对于form表单元素，可以使用那么来查询，返回值是对象集合
+	console.log(document.getElementsByName('username'));
+	console.log(document.getElementsByName('username')[0].value);
+	document.getElementsByName('username')[0].value = 'biyj';
+	
+	//按照类型查询，返回对象的集合
+	console.log(document.getElementsByClassName('test2'));
+	document.getElementsByClassName('test2')[0].style.background='gray';
+	
+	//查找子节点
+	console.log(document.getElementById('test1').childNodes.length);
+	//非w3c规范，但是各浏览器对其支持的很好，不包含空白节点
+	console.log(document.getElementById('test1').children.length);
+	
+	document.getElementsByTagName('p')[2].parentNode.style.border="2px solid blue";
+</script>
+</html>

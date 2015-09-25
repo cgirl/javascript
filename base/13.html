@@ -2,12 +2,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>操作对象</title>
+<title>获取运行时的style对象</title>
 <style>
 	div{
 		width:300px;
 		height:300px;
-		border-bottom:1px solid #000
+		border-bottom:1px solid #000;
 	}
 	.test1{
 		background:green;
@@ -17,6 +17,10 @@
 	}
 </style>
 <script>
+	function getStyle(obj, attr){
+		return obj.currentStyle?obj.currentStyle[attr]:window.getComputedStyle(obj, null)[attr];
+	}
+	
 	function t(){
 		var div = document.getElementsByTagName('div')[0];
 		if(div.className.indexOf('test1')>=0){
@@ -25,9 +29,9 @@
 			div.className = 'test1';
 		}
 		
-		div.style.width = parseInt(div.style.width) + 5 + 'px';
-		div.style.height = parseInt(div.style.height) + 5 + 'px';
-		div.style.borderBottomWidth = parseInt(div.style.borderBottomWidth) + 1 + 'px';
+		div.style.width = parseInt(getStyle(div, 'width')) + 5 + 'px';
+		div.style.height = parseInt(getStyle(div, 'height')) + 5 + 'px';
+		div.style.borderBottomWidth = parseInt(getStyle(div, 'borderBottomWidth')) + 1 + 'px';
 	}
 </script>
 </head>

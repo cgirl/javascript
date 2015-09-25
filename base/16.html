@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>暴力操作节点</title>
+</head>
+<body>
+	<input type="button" value="添加春夏秋" onclick="add3()">
+	<input type="button" value="添加冬" onclick="add1()">
+	<ul></ul>
+</body>
+<script>
+	function add3(){
+		var ul = document.getElementsByTagName('ul')[0];
+		ul.innerHTML = '<li>春</li><li>夏</li><li>秋</li>';
+	}
+	
+	function add1(){
+		var ul = document.getElementsByTagName('ul')[0];
+		ul.innerHTML += '<li>冬</li>';
+	}
+</script>
+</html>

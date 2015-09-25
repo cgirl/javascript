@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>删除节点</title>
+<script>
+	function del(){
+		var lis = document.getElementsByTagName('li');
+		var lastli = lis[lis.length-1];
+		lastli.parentNode.removeChild(lastli);
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="删除最后一个li" onclick="del();">
+	<ul>
+		<li>春</li>
+		<li>夏</li>
+		<li>秋</li>
+		<li>冬</li>
+	</ul>
+</body>
+</html>

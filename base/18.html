@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>定时器</title>
+<script>
+	/**案例1
+	function bang(){
+		document.getElementsByTagName('img')[0].src = 'warn.jpg';
+	}
+	setTimeout('bang()', 3000);//3秒后执行bang函数
+	**/
+	
+	/** 案例2 
+	function bang(){
+		var input = document.getElementsByName('time')[0];
+		var time = parseInt(input.value) - 1;
+		input.value = time;
+		
+		if(time==0){
+			document.getElementsByTagName('img')[0].src = 'warn.jpg';
+		}
+	}
+	
+	setInterval('bang()', 1000);//每隔1秒执行一次
+	**/
+	
+	/** 案例3 
+	function bang(){
+		var input = document.getElementsByName('time')[0];
+		var time = parseInt(input.value) - 1;
+		input.value = time;
+		
+		if(time==0){
+			document.getElementsByTagName('img')[0].src = 'warn.jpg';
+			clearInterval(clock);
+		}
+	}
+	
+	var clock = setInterval('bang()', 1000);//每隔1秒执行一次
+	**/
+	
+	/** 案例4 **/
+	var clock = null;
+	function bang(){
+		var input = document.getElementsByName('time')[0];
+		var time = parseInt(input.value) - 1;
+		input.value = time;
+		if (time == 0){
+			document.getElementsByTagName('img')[0].src = 'warn.jpg';
+			clearTimeout(clock);
+		} else {
+			setTimeout('bang()', 1000);
+		}
+	}
+	setTimeout('bang()', 1000);//3秒后执行bang函数
+	
+</script>
+</head>
+<body>
+	<h1>定时器</h1>
+	<input type="button" name="time" value="5">
+	<img alt="" src="bang.jpg">
+</body>
+</html>

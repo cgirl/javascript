@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>事件、行为、结构相分离</title>
+<style>
+	div{
+		width:300px;
+		height:300px;
+		border:1px solid blue;
+	}
+</style>
+</head>
+<body>
+	<div>
+		<p>
+			<ul>
+				<li>好</li>
+			</ul>
+		</p>
+	</div>
+</body>
+<script>
+	document.getElementsByTagName('div')[0].onclick = function (){
+		this.style.border="1px solid red";
+	};
+</script>
+</html>

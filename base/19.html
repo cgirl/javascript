@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>常见事件</title>
+<style>
+	div{
+		width:200px;
+		height:200px;
+		background:gray;
+	}
+</style>
+<script>
+	function t1(){
+		document.getElementsByName('username')[0].style.border="1px solid blue";
+	}
+	function t2(){
+		document.getElementsByName('username')[0].style.border="";
+	}
+	function t3(){
+		alert('33');
+	}
+	function t4(){
+		alert('请填写完整信息');
+		return false;
+	}
+	function t5(){
+		document.getElementsByTagName('p')[0].style.border = '1px solid blue';
+	}
+	/*
+	window.onload = function()
+	*/
+</script>
+</head>
+<body onload = "t5();">
+	<p>
+		用户名：<input type="text" name="username" onfocus="t1();" onblur="t2();"/>
+	</p>
+	<p>
+		邮&nbsp;&nbsp;&nbsp;箱：<input type="text" name="mail" />
+	</p>
+		<h1>鼠标经过事件</h1>
+		<div onmouseover="t3();"></div>
+		<form action="19.html" onsubmit="return t4();">
+			<p><input type="text" name="username" id=""/></p>
+			<p><input type="text" name="" id=""/></p>
+			<p><input type="submit" value="提交"/></p>
+		</form>
+</body>
+</html>

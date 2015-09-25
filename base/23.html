@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>正则表达式</title>
+</head>
+<body>
+	<pre>
+		1.用户名只能为字母及数字6~11位
+		2.email为正确的email
+	</pre>
+	<form action="">
+		<p>用户名:<input type="text" name="username"></p>
+		<p>邮&nbsp;&nbsp;&nbsp;箱:<input type="text" name="email"></p>
+		<p><input type="submit" name="提交"></p>
+	</form>
+	<ul>
+		<input type="button" value="标注有邮箱的人" onclick="find();">
+		<li>张飞</li>
+		<li>刘备&lt;123456@qq.com&gt;</li>
+		<li>关羽&lt;liubei@zixue.it&gt;</li>
+		<li>赵云</li>
+	</ul>
+</body>
+<script>
+	document.getElementsByTagName('form')[0].onsubmit = function (){
+		var pattern = /^[a-zA-Z0-9]{6,11}$/;
+		if (!pattern.test(document.getElementsByName('username')[0].value)){
+			alert("用户名由6到11位数字组成");
+			return false;
+		}
+		
+		pattern = /^\w+@\w+(\.\w+)+$/;
+		if (!pattern.test(document.getElementsByName('email')[0].value)){
+			alert("请输入正确的邮箱");
+			return false;
+		}
+	}
+	
+	function find(){
+		var lis = document.getElementsByTagName('li');
+		var i=0;
+		var pattern = /\w+@\w+(\.\w+)+/;
+		while(i < lis.length){
+			if(pattern.exec(lis[i].innerHTML) != null){
+				lis[i].style.color = 'red';
+			}
+			i++;
+		}
+	}
+</script>
+</html>

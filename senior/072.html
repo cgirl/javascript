@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>词法分析（部分）</title>
+</head>
+<script type="text/javascript">
+//函数声明， 与函数表达式
+/*
+ * js是被称为披着c外衣的Lisp语言，Lisp是一种强大的函数式语言
+ 
+ * 函数可以赋值给变量，可以作为参数来传递
+ */
+ function t(){
+}
+
+t2 = function(){
+}
+// 这两种方式，效果不同
+// t1是函数声明，虽然全局内也可以找到一个t1变量，但是值为function
+// t2只是一个赋值过程 ---- 值是谁，值时右侧的表达式的返回结果，即函数
+
+//就是说，fucntion(){}在js来看，就和3*3一样，是个表达式，返回一个结果
+//因此t1 和 t2两种方式在词法分析时，有着本质的区别；前者在词法分析阶段，就已经发挥作用，而后者在运行阶段，才发挥作用
+
+(function(window, undefined){
+})(window);
+/*
+//这是jquery的最外层代码
+(function(window, undefined){
+}) --内层表达式，返回值是函数，包在小括号里，当表达式来执行
+
+(function(window, undefined){
+})(window) --立即调用
+
+//内层函数没有起名字，称为匿名函数
+//这种手法，匿名函数，立即执行，不污染全局，称为立即执行匿名函数表达式
+
+//思考：为什么传window，而不传undefined?
+// 答：1)传window是为了速度
+      function(){
+        functiong(){
+          function(){
+              document.getElementById...//这个document将会层层上找，知道最外层
+          }
+        }
+      }
+      
+      jquery就是为了加快内部查找变量的速度，而直接把window以参数形式传进来，这样window就是在jquery内部的AO上
+      
+      2)不传undefined是为了安全，因为在IE，FF低版本中，undefined竟然可以重新赋值，如undefined=3
+        - 声明undefined局部变量（名字是undefined而已），同时，又不传参，值自然是undefined，防止了外界对undefined的污染
+
+*/
+</script>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>私有属性与封装</title>
+</head>
+<script>
+/**
+ * 用构造函数类创建对象
+ */
+function Dog(){
+    this.leg = 4;
+    this.bark = function(){
+        alert('汪汪');
+    }
+}
+
+var huzi = new Dog();
+huzi.bark();
+
+/**
+ * 此时，我们并没有完成面向对象的“封装”，所谓“封装”就是要封闭一部分，外界无法访问；开放一部分，并通过开放部分来
+ * 间接访问私有部分。
+ */
+ 
+/**
+ * js之私有属性：用闭包来完成js面向对象的私有属性
+ */
+function Girl(name, bf){
+    this.name = name;
+    this.love = bf;
+}
+var girl = new Girl('林黛玉', '贾宝玉');
+alert(girl.name + '喜欢'+girl.love);
+
+//用闭包，让bf不能外界访问
+/**
+ * 这是通过闭包来完成js面向对象的私有属性与封装
+ * 这个方法是js大牛，xxx提出来的，他以前再雅虎，现在在paypal。道格拉斯
+ * json格式也是他倡导的，他的书 --- JavaScript语言精粹
+ */
+function Girl1(name, bf){
+    var secret = bf;
+    this.name = name;
+    this.showlove = function(){
+        return secret;
+    }
+    
+    //移情别恋
+    this.movelove = function(){
+        secret = '帅哥';
+    }
+}
+var girl1 = new Girl1('林黛玉', '贾宝玉');
+alert(girl1.name + '喜欢'+girl1.secret); //==>林黛玉喜欢undefined
+alert(girl1.name + '喜欢'+girl1.showlove());
+girl1.movelove();
+alert(girl1.name + '喜欢'+girl1.showlove());
+
+</script>
+<body>
+
+</body>
+</html>

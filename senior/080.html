@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>继承面试题</title>
+</head>
+<script type="text/javascript">
+function Dog(){
+    this.bark = function(){
+        alert('wangwang');
+    }
+}
+
+function jinmao(){
+    this.fire = function(){
+        alert("金毛");
+    }
+}
+
+//原型继承
+jinmao.prototype = new Dog();
+var huang = new jinmao();
+huang.bark();
+
+function hashiqi(){
+    this.xingge = function(){
+        alert('二了吧唧');
+    }
+}
+
+hashiqi.prototype = new Dog();
+hashiqi.prototype.bark = function(){
+    alert('aoao~');
+}
+var erha = new hashiqi();
+erha.bark();
+
+
+</script>
+<body>
+
+</body>
+</html>

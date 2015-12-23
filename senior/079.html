@@ -39,14 +39,47 @@ hu.climb = bosi.clib;
  * 2:hnhu.bark = function(){}
  * 3:hnhu.prototype = tiger.prototype(即cat对象) //这是继承的关键
  * 就是说 --- js中，每个对象，都有一个__proto__指向其原型对象
- * 原型对象也是对象，也有__proto__, ...原型的原型的原型...是谁？
+ * 原型对象也是对象，也有__proto__, ...原型的原型的原型...是谁？ 思考课程的图
  */
 //让老虎爬树，开始继承
 tiger.prototype = new cat();
 var hnhu = new tiger();
 hnhu.bark();
 hnhu.climb();
+alert(hnhu.valueOf());
 console.log(hnhu);
+
+
+var mimi = new cat();
+console.log(mimi);
+console.log(cat.prototype); //空对象，显示为cat
+console.log(cat.prototype.constructor); //因为原型对象的constructor指向cat，所以显示为cat
+console.log(cat.prototype.__proto__); //object
+
+function getPrototypeChain(object) {
+    var protoChain = [];
+    while (object = object.__proto__) {
+        protoChain.push(object);
+    }
+    protoChain.push(null);
+    return protoChain;
+}
+console.log(getPrototypeChain(hnhu));
+
+/**
+ * 给所有的对象，加一个唱歌方法
+ */
+Object.prototype.Sing = function(){
+    alert('赶紧学习啊！');
+}
+function Pig(){
+    this.eat = '30KG';
+}
+
+Pig.prototype = new tiger();
+var pig = new Pig();
+pig.Sing();
+console.log(pig);
 
 </script>
 <body>

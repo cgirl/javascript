@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>绑定事件的2种方法</title>
+</head>
+<script>
+/**
+ * 在这个过程中，a标签上绑定了onclick事件，用句柄来描述就是：
+ * a标签的onclick句柄上，绑定了t函数
+ * 分析：
+ *    1:Dom对象的句柄
+ *    2:句柄上绑定的函数
+ *    3:事件发生的那一瞬间，关于事件的各种信息，如时间，发生时鼠标在屏幕上的坐标，事件类型
+ *      这些信息，被打包成一个对象，便于我们获取。这个对象称为"事件对象"
+ */
+function t(){
+    alert('好好学习');
+}
+
+/**
+ * 第1种绑定事件的方式
+ * 即把时间写在标签的属性里
+ * 如：<a href="#" onclick="t()">
+ * 这是DOM 0级的标准（非常古老的标准）例子（第二个a）
+ * 优点：大家都会，几乎所有的浏览器都支持
+ * 缺点：因为夹杂在html代码中，代码不简洁；这种时间写法，效率不高；不符合“行为，结构，样式相分离”
+ */
+
+/**
+ * 第2种绑定事件的方式
+ * 用事件属性来绑定事件函数
+ * 优点：
+ *  1:完成了行为的分离
+ *  2:便于操作当事对象，因为function是作为对象的on***属性出现的，因此函数里操作该对象，直接用this就能引用当事对象
+ *  3:可以方便的读取“事件对象”，在事件触发时，系统自动把“事件对象”传递给“事件函数”，以其第一个参数来传递
+ */
+window.onload = function(){
+     //优点1
+     document.getElementById('test1').onclick = function(){
+         alert('有人点击div');
+     };
+     //优点2
+     document.getElementById('test2').onclick = function(){
+         this.style.background = 'red';
+     };
+     //优点3
+     document.getElementById('test3').onclick = function(ev){
+         console.log(ev); //坐标，时间戳，点击目标对象等等
+         var test4 = document.getElementById('test4');
+         test4.style.left = ev.clientX+'px';
+         test4.style.top = ev.clientY+'px';
+     };
+ }
+</script>
+
+<style>
+div {
+    background:blue;
+    width:100px;
+    height:100px;
+}
+#test4 {
+    background:yellow;
+    z-index:1000;
+    position:absolute;
+    left:100px;
+    top:100px;
+    width:20px;
+    height:20px;
+}
+</style>
+<body>
+    <a href="#" onclick="t();">自学IT网</a>
+    <p>下面是一个行为、样式、结构不分离的例子</p>
+    <a href="#" style="background:gray" onclick="alert('2222');">自学IT网</a>
+    <p>下面是第2种绑定事件的方式</p>
+    <div id="test1"></div><br>
+    <div id="test2"></div><br>
+    <div id="test3"></div><br>
+    <div id="test4"></div><br>
+</body>
+</html>

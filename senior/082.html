@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>动态语言谈不上多态</title>
+</head>
+<script type="text/javascript">
+/**
+ * 1:多态不是“神奇的效果”，而是在静态语言相对动态语言，类型不灵活的一个体现
+ * 2:由上，在灵活的动态语言中，谈不上“多态”概念
+ */
+/**
+ * 例如：在java中
+ * class Dog{
+ *     void bark(){
+ *     }
+ * }
+ * 
+ * class jingba extend Dog{
+ *     void bark(){
+ *         System.out.println('汪汪');
+ *     }
+ * }
+ * class Hashiqi extend Dog{
+ *     void bark(){
+ *         System.out.println('呜呜');
+ *     }
+ * }
+ * 某个方法，大致如下：
+ * void call1(jingba j){ //此处，j变量前，声明了j必须是jangba类的实例
+ *     j->bark();
+ * }
+ * void call2(Hashiqi h){ //此处，h变量前，声明了h必须是Hashiqi类的实例
+ *     h->bark();
+ * }
+ 
+ * 如上，不够灵活，修改如下：
+ * void call(Dog d){ //此处，声明了d必须是Dog类的实例,所以传j, h都行，因为j,h都是狗
+ *     d->bark();
+ * }
+ * 经过上面的改造：本来只能接受Hashiqi和jingba实例的，现在能接受的范围宽了，只要是Dog实例，或者Dog自雷的实例
+ * 都可以；同时将导致一个后果，传一个Dog实例进来，有可能是Hashiqi对象，wuwu叫，也有可能是jingba对象，汪汪叫
+ * 都是传Dog对象进来，竟然有不同的叫声，称之为多态
+ */
+
+/**
+ * 如上可知，js里谈不上多态，因为js就没有限制参数类型
+ */
+function Dog(){
+    this.leg = 4;
+    this.bark = null;
+}
+
+function Hashiqi(){
+    this.bark = function(){
+        alert('wuwu');
+    }
+}
+
+function Jingba(){
+    this.bark = function(){
+        alert('wangwang');
+    }
+}
+
+Hashiqi.prototype = Jingba.prototype = new Dog();
+var h = new Hashiqi();
+var j = new Jingba();
+
+function test(dog){
+    dog.bark();
+    console.log(dog.leg);
+}
+
+test(h);
+test(j);
+//传不同的狗，叫声不同--因为传的是狗的不同子类
+
+</script>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>addEventListener高级事件绑定</title>
+</head>
+<script type="text/javascript">
+/**
+ * 第2种绑定方式
+ * xxxDomObject.onclick = function(){}
+ * 缺点：只能绑定一个事件
+ */
+/**
+ * 一个页面的js由多人团队开发，A，B都写了onload事件，则后面的额时间，把前面的onload属性
+ * 值覆盖掉了
+ */
+window.onload = function(){
+    alert('hello');
+    //绑定多个事件可如下，但是代码不简洁
+    //t1();
+    //t2();
+}
+ 
+window.onload = function(){
+    alert('world');
+}
+</script>
+<body>
+
+</body>
+</html>

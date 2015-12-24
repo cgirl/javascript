@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>原型冒充及复制继承</title>
+</head>
+<script type="text/javascript">
+/**
+ * js的语法，非常灵活
+ * 不仅可以用原型继承，还有其他办法
+ * 如：原型冒充，或者复制继承
+ */
+ 
+/* 1.原型冒充 */
+function Cat(leg, tail){
+    this.leg = leg;
+    this.tail = tail;
+    
+    this.climb = function(){
+        alert('爬');
+    }
+}
+
+function Tiger(leg, tail, color){
+    //把要继承的类的语句，拿来执行一遍
+    this.parent = Cat; //把父类构造函数引入到一个parent属性上
+    this.parent.apply(this, arguments);
+    delete this.parent;
+    
+    this.color = color;
+}
+
+var tiger = new Tiger(4, 1, "yellow");
+console.log(tiger);
+tiger.climb();
+
+/**
+ * 这是什么过程？
+ * 答：其实就是，在用Tiger造对象时，用Tiger的语句影响一个空对象{}
+ *    在此过程中，Tiger影响空对象前，先用Cat函数实施影响
+ *    因此，最终得到的对象，是由Cat和Tiger两者共同作用过的对象
+ */
+
+
+ /* 2.复制继承 */
+//复制继承，就是把父对象的所有属性，直接复制到自己的对象上
+function Cat1(leg, tail){
+    this.leg = leg;
+    this.tail = tail;
+    
+    this.climb = function(){
+        alert('ppppp');
+    }
+}
+
+function Tiger1(color){
+    this.color = color;
+    
+    this.extend = function(parent){
+        for(var key in parent){
+            this[key] = parent[key];
+        }
+    }
+}
+
+var tiger1 = new Tiger1("white");
+console.log(tiger1);
+tiger1.extend(new Cat1(3, 1));
+console.log(tiger1);
+tiger1.climb();
+
+</script>
+<body>
+
+</body>
+</html>

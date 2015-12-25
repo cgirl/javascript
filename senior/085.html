@@ -24,8 +24,35 @@ window.onload = function(){
 window.onload = function(){
     alert('world');
 }
-</script>
-<body>
 
+</script>
+
+<style>
+div {
+    width:100px;
+    height:100px;
+    background:blue;
+}
+</style>
+<body>
+    <div id="test1"></div>
 </body>
+<script>
+/**
+ * 第3种绑定方式
+ * W3C中的标准 -- addEventListener
+ * 1：绑在哪个事件上？click,load,change,blur,focus,mouseover......等等
+ * 2：绑定什么函数 -- 自定义函数
+ * 3：什么方式监听执行事件函数？捕捉，冒泡？
+ * 语法：xxDOMObject.addEventlistener();
+ * 注意细节：
+ *     1.事件名一律不带on
+ *     2.绑定事件函数中的this指绑定事件的当前对象
+ *     3.这个执行顺序是按绑定顺序执行的
+ */
+var test1 = document.getElementById('test1');
+test1.addEventListener('click', function(){this.style.background="gray"}, false);
+test1.addEventListener('click', function(){alert('自学')}, false);
+test1.addEventListener('click', function(){alert('it')}, false);
+</script> 
 </html>

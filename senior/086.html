@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>详解捕捉模型与冒泡模型</title>
+</head>
+<style>
+#china{
+    background:red;
+    width:300px;
+    height:300px;
+    border:1px solid gray;
+}
+#beijing,#haidian {
+    margin:auto;
+    width:80%;
+    height:80%;
+}
+#beijing {
+    background:blue;
+    border:1px solid red;
+}
+#haidian {
+    background:green;
+    border:1px solid green;
+}
+</style>
+<body>
+    <div id="china">中国
+        <div id="beijing">北京
+            <div id="haidian">海淀
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+function $(id){
+    return document.getElementById(id);
+}
+/** 捕捉模型 **/
+$('china').addEventListener('click', function(){alert('进入china')}, true);
+$('beijing').addEventListener('click', function(){alert('进入beijing')}, true);
+$('haidian').addEventListener('click', function(){alert('进入haidian')}, true);
+
+/** 冒泡模型 **/
+$('china').addEventListener('click', function(ev){console.log(ev);alert('离开china')}, false);
+$('beijing').addEventListener('click', function(){alert('离开beijing')}, false);
+$('haidian').addEventListener('click', function(){alert('离开haidian')}, false);
+
+/**
+ * 思考：如果我再海淀div点击了一下，那么点击的效果，是向内聚焦，还是向外扩散？
+ * 答：在W3C中，同时支持这两种方式，分别称为：外->内 “捕捉模型”和 内->外 “冒泡模型”
+ * 
+ * 总结：
+ * 1：第3个参数true/false代表捕捉/冒泡类型，如果不填，默认为false（建议不省略）
+ * 2：系统会为事件函数自动传入事件对象，作为第一个参数传入
+ */
+</script>
+</html>

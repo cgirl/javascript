@@ -9,17 +9,56 @@
 </body>
 <script type="text/javascript">
 /**
+ * 针对IE模型的事件写法，适用于IE6/7/8
+ * IE事件模型相比W3C的标准时间，主要有3点不同：
+ * 0：绑定事件的函数不一样，IE中用attachEvent()
+ * 1：事件必须要加on，比如标准中第一个参数为click，相对的IE中要写onclick
+ * 2：IE7,8中还有个问题，就是先绑定的事件后发生，或者说可能是随机发生
+ * 3：绑定事件中，this的指向问题，W3C模型中，this指向对象本省，而IE模型中this指向window
+ *    这一点比较麻烦，但是可以使用js知识来修复
+ */
+/**
  * obj:待绑定事件的对象
  * type:事件类型，click,mouseover,change等
  * event:事件对象，是一个函数
  * model：true/false 捕捉/冒泡
  */
+/* 解决2的问题*/
 function addEvent(obj, type, event, model){
-    if(obj.attachEvent){
+    //判断oj的自定义属性是否存在，如不存在，则创建赋值为空数组
+    if(!obj['__'+type+'__']){
+        obj['__'+type+'__'] = [];
+    }
+    alert('11');
+    obj['__'+type+'__'].push(event);
+    if(!obj['on'+type]){
+        obj['on'+type] = function(){
+            for(var len=obj['__'+type+'__'].length, i=0; i<len; i++){
+                obj['__'+type+'__'][i].apply(obj); //解决3的问题
+            }
+        }
+    }
+    /* 解决0/1的问题  */
+    /* if(obj.attachEvent){
+        alert('1');
         obj.attachEvent('on'+type, event, model); //此处建议判断参数的合法性
     }else{
+        alert('2');
         obj.addEventListener(type, event, model);
-    }
+    } */
 }
+
+window.onload = function(){
+    var test1 = document.getElementById('test1');
+    addEvent(test1, 'click', function(){this.style.backgroundColor="blue"}, false);
+    addEvent(test1, 'click', function(){alert('eheh')}, false);
+    
+}
+
+/**
+ * 这个兼容做的仍然比价粗糙，大家可以沿着这个思路，再做如下改进：
+ * 1：目前只支持绑定，如何自定义函数还能变绑定
+ * 2：如何给event事件传多个参数
+ */
 </script>
 </html>

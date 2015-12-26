@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>完成IE与W3C标准事件模型的兼容</title>
+</head>
+<body>
+    <input type="button" id="test1" value="点我" />
+</body>
+<script type="text/javascript">
+/**
+ * obj:待绑定事件的对象
+ * type:事件类型，click,mouseover,change等
+ * event:事件对象，是一个函数
+ * model：true/false 捕捉/冒泡
+ */
+function addEvent(obj, type, event, model){
+    if(obj.attachEvent){
+        obj.attachEvent('on'+type, event, model); //此处建议判断参数的合法性
+    }else{
+        obj.addEventListener(type, event, model);
+    }
+}
+</script>
+</html>

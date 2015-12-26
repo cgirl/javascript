@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>IE事件模型与标准模型详细对比</title>
+</head>
+<body>
+    <input type="button" id="test1" value="点我"/>
+</body>
+<script type="text/javascript">
+/**
+ * 在IE10及以上版本，已经支持W3C标准模型
+ * 在IE9的版本中，是IE独有的事件模型，和W3C下的不一样，所以要注意兼容性
+ * 如果你的浏览器是IE10，可以F12，切换到IE7/8/9模式来测试效果
+ */
+/* 
+ * W3C写法*/
+/* window.onload = function(){
+    document.getElementById('test1').addEventListener('click', function(){alert('捕捉')}, true);
+    document.getElementById('test1').addEventListener('click', function(){alert('冒泡')}, false);
+} */ 
+
+/**
+ * 针对IE模型的事件写法，适用于IE6/7/8
+ * IE事件模型相比W3C的标准时间，主要有3点不同：
+ * 0：绑定事件的函数不一样，IE中用attachEvent()
+ * 1：事件必须要加on，比如标准中第一个参数为click，相对的IE中要写onclick
+ * 2：IE模型中，不支持捕捉模型，只支持冒泡（靠JS弥补不了），IE6，7，8已经支持捕捉
+ *   （注：实则IE6已支持捕捉，待核实）
+ * 3：IE7,8中还有个问题，就是先绑定的事件后发生，或者说可能是随机发生
+ * 4：绑定事件中，this的指向问题，W3C模型中，this指向对象本省，而IE模型中this指向window
+ *    这一点比较麻烦，但是可以使用js知识来修复
+ * 5：事件对象不一样，W3C中，事件对象自动被传递给事件函数的第一个参数，
+ *    而在IE中，事件对象是window.event属性值
+ *   （注：实测，IE6,7,8已支持自动传入event对象）
+ */
+//IE写法（IE11支持W3C，不再支持attachEvent）
+/* window.onload = function(){
+     document.getElementById('test1').attachEvent('onclick', function(){alert('捕捉')}, true);
+     document.getElementById('test1').attachEvent('onclick', function(){alert('冒泡')}, false);
+} */
+
+window.onload = function(){
+    var test1 = document.getElementById('test1');
+    if(test1.attachEvent){
+        //IE-测试this指向，this指向的事window，无法改变背景颜色
+        test1.attachEvent('onclick', function(){this.style.backgroundColor="blue"}, true);
+    }else{
+        //W3C-测试this指向
+        test1.addEventListener('click', function(){this.style.backgroundColor="blue"}, true);
+    }
+}
+
+
+</script>
+</html>

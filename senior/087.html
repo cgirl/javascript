@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>事件停止与效果阻止</title>
+</head>
+<script>
+/**
+ * 思考1:事件捕捉/冒泡的过程中，能否停止事件的传播？
+ *      比如，被bj捕捉后，就结束，hd则别想捕捉；或者hd被捕捉后，就结束，bj就无法冒泡了
+ * 答:当然能，可以停止事件的传播。用事件对象的stopPropagation
+ * 
+ * 思考2:以表单为例，我想点击“onsubmit”时，检查是否填写完全，如果不完全，不让他提交。
+ *      能否做到？即取消事件本身应有的效果，能否做到？
+ * 答:当然能。用事件对象的preventDefault()来实现
+ */
+</script>
+<style>
+div {
+    width:200px;
+    height:200px;
+    background:gray;
+    border:1px solid black;
+}
+#bj, #hd{
+    width:80%;
+    height:80%;
+}
+#bj{
+    background:blue;
+    border:1px solid black;
+    margin:auto;
+}
+#hd{
+    background:green;
+    border:1px solid black;
+    margin:auto;
+}
+</style>
+<body>
+    <form action="" id="fm">
+        <p><input type="text" id="age" name="age"/></p>
+        <input type="submit" value="提交" />
+    </form><br />
+    <div id="china">中国
+        <div id="bj">北京
+            <div id="hd">海淀</div>
+        </div>
+    </div>
+</body>
+<script>
+function $(id){
+    return document.getElementById(id);
+}
+
+//思考1 51行
+$('china').addEventListener('click', function(){alert('进入china')}, true);
+$('bj').addEventListener('click', function(ev){alert('进入bj');ev.stopPropagation();}, true);
+$('hd').addEventListener('click', function(){alert('进入hd')}, true);
+
+$('china').addEventListener('click', function(){alert('离开china')}, false);
+$('bj').addEventListener('click', function(){alert('离开bj')}, false);
+$('hd').addEventListener('click', function(){alert('离开hd')}, false);
+
+$('fm').addEventListener('submit', function(ev){
+    if($('age').value==""){alert('不能为空'); ev.preventDefault();}
+}, false);
+</script>
+</html>
